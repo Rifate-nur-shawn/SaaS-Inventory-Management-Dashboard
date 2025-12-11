@@ -1,10 +1,23 @@
-import "./App.css";
+import { BrowserRouter } from 'react-router-dom';
+import { QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { queryClient } from './lib/queryClient'; // Import the engine you made
+import { AppRoutes } from './routes/AppRoutes';  // Import the traffic controller
 
 function App() {
   return (
-    <>
-      <h1>Vite + React</h1>
-    </>
+    // 1. DATA LAYER (React Query)
+    <QueryClientProvider client={queryClient}>
+      
+      {/* 2. ROUTING LAYER */}
+      <BrowserRouter>
+        <AppRoutes />
+      </BrowserRouter>
+      
+      {/* DEV TOOLS (Only shows in development, lifesaving for debugging) */}
+      <ReactQueryDevtools initialIsOpen={false} />
+      
+    </QueryClientProvider>
   );
 }
 
